@@ -1,8 +1,8 @@
 from django.conf.urls import url
 
-from .api import ListAPI, CardAPI
+from .api import ListApi, CardApi
 
 urlpatterns = [
-    url(r'^lists$', ListAPI.as_view()),
-    url(r'^cards$', CardAPI.as_view())
+    url(r'^lists$', ListApi.as_view()),
+    url(r'^cards$', CardApi.as_view())
 ]
