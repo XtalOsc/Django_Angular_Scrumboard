@@ -1,29 +1,24 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
   <head>
     <meta charset="utf-8">
     <title>Scrumboard</title>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-    <script>
-    (function(){
-      'use strict';
-      angular.module('scrumboard.demo',[])
-      .controller('ScrumboardController', ScrumboardController);
-
-      function ScrumboardController($scope){
-        $scope.person = {
-          name: 'John',
-          age: 35
-        };//end person object
-      }//end ScrumboardController()
-    }());
-    </script>
+    <script src="{% static "scrumboard.js" %}"></script>
   </head>
   <body ng-app="scrumboard.demo">
     {% verbatim %} <!-- Won't interperate as Django code inside this block-->
     <div ng-controller="ScrumboardController">
-      {{person.name}} is {{person.age}} years old.
-    </div>
+      <div ng-repeat="list in data">
+        <h3>{{list.name}}</h3>
+        <ul>
+          <li ng-repeat="card in list.cards">{{card.title}}</li>
+        </ul>
+        <input type="text" ng-model="new_title"/>
+        <button ng-click="add(list, new_title)">Add</button>
+      </div><!-- end ng-repeat div-->
+    </div><!-- end ng-controller div -->
     {% endverbatim %}
   </body>
 </html>
