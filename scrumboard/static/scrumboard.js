@@ -1,9 +1,9 @@
 (function(){
   'use strict';
   angular.module('scrumboard.demo',[])
-  .controller('ScrumboardController', ScrumboardController);
+  .controller('ScrumboardController', ['$scope', '$http', ScrumboardController]);
 
-  function ScrumboardController($scope){
+  function ScrumboardController($scope, $http){
 
     $scope.add = function(list, title){
       var card = {
@@ -14,32 +14,10 @@
       list.cards.push(card);
     }//end $scope.add function
 
-    $scope.data = [
-      {
-        name: 'Django demo',
-        cards: [
-          {
-            title: 'Create Models'
-          },
-          {
-            title: 'Create View'
-          },
-          {
-            title: 'Migrate Database'
-          },
-        ]//end cards
-      },//end 'Django demo'
-      {
-        name: 'Angular demo',
-        cards: [
-          {
-            title: 'Write HTML'
-          },
-          {
-            title: 'Write Javascript'
-          },
-        ]//end cards
-      }//end 'Angular demo'
-    ]//end $scope.data
+$scope.data = [];
+$http.get('/scrumboard/lists').then(function(response){
+  $scope.data = response.data;
+});//end http.get response
+
   }//end ScrumboardController()
 }());
