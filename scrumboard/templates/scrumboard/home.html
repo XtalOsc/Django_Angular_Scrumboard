@@ -6,17 +6,23 @@
     <title>Scrumboard</title>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script src="{% static "scrumboard.js" %}"></script>
+    <script src="{% static "card.directive.js" %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "css/scrumboard.css" %}">
   </head>
   <body ng-app="scrumboard.demo">
     {% verbatim %} <!-- Won't interperate as Django code inside this block-->
     <div ng-controller="ScrumboardController">
-      <div ng-repeat="list in data">
+      <div class="list" ng-repeat="list in data">
         <h3>{{list.name}}</h3>
         <ul>
-          <li ng-repeat="card in list.cards">{{card.title}}</li>
+          <li ng-repeat="card in list.cards">
+            <scrumboard-card></scrumboard-card>
+          </li>
         </ul>
-        <input type="text" ng-model="new_title"/>
-        <button ng-click="add(list, new_title)">Add</button>
+        <div class="flex">
+          <input type="text" ng-model="new_title"/>
+          <button ng-click="add(list, new_title)">Add</button>
+        </div><!-- end class=flex div-->
       </div><!-- end ng-repeat div-->
     </div><!-- end ng-controller div -->
     {% endverbatim %}
